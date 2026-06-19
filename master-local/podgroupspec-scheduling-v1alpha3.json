@@ -46,7 +46,7 @@
     },
     "schedulingPolicy": {
       "$ref": "_definitions.json#/definitions/io.k8s.api.scheduling.v1alpha3.PodGroupSchedulingPolicy",
-      "description": "SchedulingPolicy defines the scheduling policy for this instance of the PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable."
+      "description": "SchedulingPolicy defines the scheduling policy for this instance of the PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate."
     }
   },
   "required": [
