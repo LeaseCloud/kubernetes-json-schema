@@ -5092,13 +5092,13 @@
       "description": "JobSchedulingConfiguration composes the reusable workload-aware scheduling building blocks.",
       "properties": {
         "disruptionMode": {
-          "$ref": "#/definitions/io.k8s.api.scheduling.v1alpha3.WorkloadPodGroupDisruptionMode",
+          "$ref": "#/definitions/io.k8s.api.scheduling.v1.WorkloadPodGroupDisruptionMode",
           "description": "disruptionMode defines the mode in which the Job's pods can be disrupted. One of Single, All. This field is immutable after creation: it may not be added or removed, and the selected mode may not be changed."
         },
         "resourceClaims": {
           "description": "resourceClaims defines which ResourceClaims may be shared among Pods in the Job. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate. At most 4 claims may be set, matching the limit on the resulting PodGroup. This list is immutable after creation: entries may neither be added, removed, nor modified.",
           "items": {
-            "$ref": "#/definitions/io.k8s.api.scheduling.v1alpha3.WorkloadPodGroupResourceClaim"
+            "$ref": "#/definitions/io.k8s.api.scheduling.v1.WorkloadPodGroupResourceClaim"
           },
           "type": "array",
           "x-kubernetes-list-map-keys": [
@@ -5109,11 +5109,11 @@
           "x-kubernetes-patch-strategy": "merge"
         },
         "schedulingConstraints": {
-          "$ref": "#/definitions/io.k8s.api.scheduling.v1alpha3.WorkloadPodGroupSchedulingConstraints",
+          "$ref": "#/definitions/io.k8s.api.scheduling.v1.WorkloadPodGroupSchedulingConstraints",
           "description": "schedulingConstraints defines scheduling constraints (e.g. topology) for the Job's pods. This field is immutable after creation."
         },
         "schedulingPolicy": {
-          "$ref": "#/definitions/io.k8s.api.scheduling.v1alpha3.WorkloadPodGroupSchedulingPolicy",
+          "$ref": "#/definitions/io.k8s.api.scheduling.v1.WorkloadPodGroupSchedulingPolicy",
           "description": "schedulingPolicy defines the scheduling policy for this Job. Exactly one of Basic or Gang must be set. This field is immutable after creation: the policy may not be added or removed. The policy variant (basic/gang) is frozen by hand-written validation; only schedulingPolicy.gang.minCount may be changed."
         }
       },
@@ -5174,7 +5174,7 @@
         },
         "scheduling": {
           "$ref": "#/definitions/io.k8s.api.batch.v1.JobSchedulingConfiguration",
-          "description": "scheduling defines the Workload-aware Scheduling configuration for this Job. When set, it specifies the scheduling policy (basic or gang), topology constraints, disruption mode, and shared resource claims. When omitted, the Job defaults to the basic scheduling policy, which behaves as standard pod-by-pod scheduling. This field is alpha-level and requires the WorkloadWithJob feature gate. This field is immutable, including whether it is set at all, only policy.gang.minCount may be changed after creation."
+          "description": "scheduling defines the Workload-aware Scheduling configuration for this Job. When set, it specifies the scheduling policy (basic or gang), topology constraints, disruption mode, and shared resource claims. When omitted, the Job defaults to the basic scheduling policy, which behaves as standard pod-by-pod scheduling. This field is gated by the WorkloadWithJob feature gate.\n\nThis field is immutable, including whether it is set at all, only policy.gang.minCount may be changed after creation."
         },
         "selector": {
           "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
@@ -6937,7 +6937,7 @@
           "type": "string"
         },
         "user": {
-          "description": "user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.",
+          "description": "user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Beta) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.",
           "format": "int64",
           "type": "integer"
         }
@@ -7235,7 +7235,7 @@
           "type": "integer"
         },
         "defaultUser": {
-          "description": "defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.",
+          "description": "defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Beta) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.",
           "format": "int64",
           "type": "integer"
         },
@@ -7789,7 +7789,7 @@
           "description": "resourceFieldRef selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported."
         },
         "user": {
-          "description": "user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.",
+          "description": "user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Beta) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.",
           "format": "int64",
           "type": "integer"
         }
@@ -7808,7 +7808,7 @@
           "type": "integer"
         },
         "defaultUser": {
-          "description": "defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.",
+          "description": "defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Beta) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.",
           "format": "int64",
           "type": "integer"
         },
@@ -8964,7 +8964,7 @@
           "type": "string"
         },
         "user": {
-          "description": "user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.",
+          "description": "user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Beta) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.",
           "format": "int64",
           "type": "integer"
         }
@@ -10760,7 +10760,7 @@
           "type": "string"
         },
         "user": {
-          "description": "user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.",
+          "description": "user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Beta) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.",
           "format": "int64",
           "type": "integer"
         },
@@ -11786,7 +11786,7 @@
           "type": "integer"
         },
         "defaultUser": {
-          "description": "defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.",
+          "description": "defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Beta) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.",
           "format": "int64",
           "type": "integer"
         },
@@ -12512,8 +12512,12 @@
           "description": "localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must be set if type is \"Localhost\". Must NOT be set for any other type.",
           "type": "string"
         },
+        "oci": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecurityProfileOCI",
+          "description": "oci specifies a seccomp profile stored as an artifact in an OCI registry. The container runtime merges the profile with a base profile, so the effective profile permits an operation only if both permit it. Must be set if type is \"OCI\". Must NOT be set for any other type. This is an alpha field and requires enabling the SecurityProfileOCI feature gate."
+        },
         "type": {
-          "description": "type indicates which kind of seccomp profile will be applied. Valid options are:\n\nLocalhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.",
+          "description": "type indicates which kind of seccomp profile will be applied. Valid options are:\n\nLocalhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied. OCI - a profile pulled from an OCI registry should be used, merged with a base profile (see oci.baseProfile). Privileged containers cannot use it, whether it is set on the container or inherited from the pod. This is an alpha value and requires enabling the SecurityProfileOCI feature gate.",
           "type": "string"
         }
       },
@@ -12525,7 +12529,8 @@
         {
           "discriminator": "type",
           "fields-to-discriminateBy": {
-            "localhostProfile": "LocalhostProfile"
+            "localhostProfile": "LocalhostProfile",
+            "oci": "OCI"
           }
         }
       ]
@@ -12701,7 +12706,7 @@
           "type": "integer"
         },
         "defaultUser": {
-          "description": "defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.",
+          "description": "defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Beta) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.",
           "format": "int64",
           "type": "integer"
         },
@@ -12779,6 +12784,48 @@
         }
       },
       "type": "object"
+    },
+    "io.k8s.api.core.v1.SecurityProfileOCI": {
+      "description": "SecurityProfileOCI references a security profile stored as an artifact in an OCI registry, with an optional base profile.",
+      "properties": {
+        "baseProfile": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecurityProfileOCIBase",
+          "description": "baseProfile optionally specifies the base profile that the container runtime merges with the OCI profile. The effective profile permits an operation only if both permit it. When omitted, the container runtime default profile is the base; a Localhost base profile takes its place."
+        },
+        "ref": {
+          "description": "ref is the OCI reference of the profile. It must be a digest-pinned reference in canonical form, registry/repository@<algorithm>:<digest>, with the registry spelled out (for example docker.io/library/profile, not profile or docker.io/profile). Tags are rejected. The digest algorithm must be sha256, sha384, or sha512. The maximum length is 1024 characters. Pull secrets are assembled in the same way as for the container image by looking up node credentials, service account image pull secrets, and pod spec image pull secrets.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ref"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.SecurityProfileOCIBase": {
+      "description": "SecurityProfileOCIBase specifies the base profile of an OCI security profile.",
+      "properties": {
+        "localhostProfile": {
+          "description": "localhostProfile indicates a base profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a non-empty descending path, relative to the kubelet's configured seccomp profile location, of at most 4096 characters. Must be set if type is \"Localhost\". Must NOT be set for any other type.",
+          "type": "string"
+        },
+        "type": {
+          "description": "type indicates which kind of base profile will be applied. Valid options are:\n\nLocalhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object",
+      "x-kubernetes-unions": [
+        {
+          "discriminator": "type",
+          "fields-to-discriminateBy": {
+            "localhostProfile": "LocalhostProfile"
+          }
+        }
+      ]
     },
     "io.k8s.api.core.v1.Service": {
       "description": "Service is a named abstraction of software service (for example, mysql) consisting of local port (for example 3306) that the proxy listens on, and the selector that determines which pods will answer requests sent through the proxy.",
@@ -12924,7 +12971,7 @@
           "type": "string"
         },
         "user": {
-          "description": "user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.",
+          "description": "user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Beta) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.",
           "format": "int64",
           "type": "integer"
         }
@@ -16884,7 +16931,7 @@
       "properties": {
         "allocationTimestamp": {
           "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
-          "description": "allocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.\n\nThis is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate."
+          "description": "allocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown."
         },
         "devices": {
           "$ref": "#/definitions/io.k8s.api.resource.v1.DeviceAllocationResult",
@@ -17019,7 +17066,7 @@
           "type": "object"
         },
         "bindingConditions": {
-          "description": "bindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.\n\nThe maximum number of binding conditions is 4.\n\nThe conditions must be a valid condition type string.\n\nThis is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.",
+          "description": "bindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.\n\nThe maximum number of binding conditions is 4.\n\nThe conditions must be a valid condition type string.",
           "items": {
             "type": "string"
           },
@@ -17027,7 +17074,7 @@
           "x-kubernetes-list-type": "atomic"
         },
         "bindingFailureConditions": {
-          "description": "bindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is set to \"True\", a binding failure occurred.\n\nThe maximum number of binding failure conditions is 4.\n\nThe conditions must be a valid condition type string.\n\nThis is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.",
+          "description": "bindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is set to \"True\", a binding failure occurred.\n\nThe maximum number of binding failure conditions is 4.\n\nThe conditions must be a valid condition type string.",
           "items": {
             "type": "string"
           },
@@ -17035,7 +17082,7 @@
           "x-kubernetes-list-type": "atomic"
         },
         "bindsToNode": {
-          "description": "bindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.\n\nThis is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.",
+          "description": "bindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.",
           "type": "boolean"
         },
         "capacity": {
@@ -17462,7 +17509,7 @@
           "type": "boolean"
         },
         "bindingConditions": {
-          "description": "bindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.\n\nThis is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.",
+          "description": "bindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.",
           "items": {
             "type": "string"
           },
@@ -17470,7 +17517,7 @@
           "x-kubernetes-list-type": "atomic"
         },
         "bindingFailureConditions": {
-          "description": "bindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.\n\nThis is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.",
+          "description": "bindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.",
           "items": {
             "type": "string"
           },
@@ -18812,7 +18859,7 @@
       "properties": {
         "allocationTimestamp": {
           "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
-          "description": "allocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.\n\nThis is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate."
+          "description": "allocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown."
         },
         "devices": {
           "$ref": "#/definitions/io.k8s.api.resource.v1beta2.DeviceAllocationResult",
@@ -18947,7 +18994,7 @@
           "type": "object"
         },
         "bindingConditions": {
-          "description": "bindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.\n\nThe maximum number of binding conditions is 4.\n\nThe conditions must be a valid condition type string.\n\nThis is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.",
+          "description": "bindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.\n\nThe maximum number of binding conditions is 4.\n\nThe conditions must be a valid condition type string.",
           "items": {
             "type": "string"
           },
@@ -18955,7 +19002,7 @@
           "x-kubernetes-list-type": "atomic"
         },
         "bindingFailureConditions": {
-          "description": "bindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is set to \"True\", a binding failure occurred.\n\nThe maximum number of binding failure conditions is 4.\n\nThe conditions must be a valid condition type string.\n\nThis is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.",
+          "description": "bindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is set to \"True\", a binding failure occurred.\n\nThe maximum number of binding failure conditions is 4.\n\nThe conditions must be a valid condition type string.",
           "items": {
             "type": "string"
           },
@@ -18963,7 +19010,7 @@
           "x-kubernetes-list-type": "atomic"
         },
         "bindsToNode": {
-          "description": "bindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.\n\nThis is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.",
+          "description": "bindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.",
           "type": "boolean"
         },
         "capacity": {
@@ -19390,7 +19437,7 @@
           "type": "boolean"
         },
         "bindingConditions": {
-          "description": "bindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.\n\nThis is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.",
+          "description": "bindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.",
           "items": {
             "type": "string"
           },
@@ -19398,7 +19445,7 @@
           "x-kubernetes-list-type": "atomic"
         },
         "bindingFailureConditions": {
-          "description": "bindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.\n\nThis is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.",
+          "description": "bindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.",
           "items": {
             "type": "string"
           },
@@ -20321,6 +20368,121 @@
         }
       ]
     },
+    "io.k8s.api.scheduling.v1.WorkloadPodGroupAllDisruptionMode": {
+      "description": "WorkloadPodGroupAllDisruptionMode indicates that all pods in the group must be disrupted together.",
+      "type": "object"
+    },
+    "io.k8s.api.scheduling.v1.WorkloadPodGroupBasicSchedulingPolicy": {
+      "description": "WorkloadPodGroupBasicSchedulingPolicy indicates standard Kubernetes scheduling behavior.",
+      "type": "object"
+    },
+    "io.k8s.api.scheduling.v1.WorkloadPodGroupDisruptionMode": {
+      "description": "WorkloadPodGroupDisruptionMode defines how individual pods within a group can be disrupted. Exactly one mode must be set.",
+      "properties": {
+        "all": {
+          "$ref": "#/definitions/io.k8s.api.scheduling.v1.WorkloadPodGroupAllDisruptionMode",
+          "description": "all specifies that all pods in the group must be disrupted together."
+        },
+        "single": {
+          "$ref": "#/definitions/io.k8s.api.scheduling.v1.WorkloadPodGroupSingleDisruptionMode",
+          "description": "single specifies that pods can be disrupted independently from each other."
+        }
+      },
+      "type": "object",
+      "x-kubernetes-unions": [
+        {
+          "fields-to-discriminateBy": {
+            "all": "All",
+            "single": "Single"
+          }
+        }
+      ]
+    },
+    "io.k8s.api.scheduling.v1.WorkloadPodGroupGangSchedulingPolicy": {
+      "description": "WorkloadPodGroupGangSchedulingPolicy defines the parameters for gang (all-or-nothing) scheduling.",
+      "properties": {
+        "minCount": {
+          "description": "minCount is the minimum number of pods that must be scheduled at the same time for the scheduler to admit the entire group. This field is optional. If it is not specified, the controller should inject a context-specific sane default (e.g., parallelism for a Job). If set, it must be a positive integer.",
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.scheduling.v1.WorkloadPodGroupResourceClaim": {
+      "description": "WorkloadPodGroupResourceClaim references a dynamic resource claim that is shared across pods in the group.",
+      "properties": {
+        "name": {
+          "description": "name uniquely identifies this resource claim inside the group. This field is required. It must be a DNS_LABEL.",
+          "type": "string"
+        },
+        "resourceClaimName": {
+          "description": "resourceClaimName is the name of a ResourceClaim object in the same namespace. This field is optional. If it is not specified, no resource claim is used. If set, it must be a DNS subdomain.",
+          "type": "string"
+        },
+        "resourceClaimTemplateName": {
+          "description": "resourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace. This field is optional. If it is not specified, no resource claim template is used. If set, it must be a DNS subdomain.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.scheduling.v1.WorkloadPodGroupSchedulingConstraints": {
+      "description": "WorkloadPodGroupSchedulingConstraints defines leaf-level scheduling constraints, such as topology.",
+      "properties": {
+        "topology": {
+          "description": "topology specifies desired topological placements for all pods within the pod group. If unset, no topology placement is requested.",
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.scheduling.v1.WorkloadTopologyConstraint"
+          },
+          "type": "array",
+          "x-kubernetes-list-type": "atomic"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.scheduling.v1.WorkloadPodGroupSchedulingPolicy": {
+      "description": "WorkloadPodGroupSchedulingPolicy defines the scheduling policy for a group of pods managed by a workload controller. Exactly one policy must be set.",
+      "properties": {
+        "basic": {
+          "$ref": "#/definitions/io.k8s.api.scheduling.v1.WorkloadPodGroupBasicSchedulingPolicy",
+          "description": "basic specifies that standard, pod-by-pod Kubernetes scheduling behavior should be used."
+        },
+        "gang": {
+          "$ref": "#/definitions/io.k8s.api.scheduling.v1.WorkloadPodGroupGangSchedulingPolicy",
+          "description": "gang specifies all-or-nothing scheduling semantics."
+        }
+      },
+      "type": "object",
+      "x-kubernetes-unions": [
+        {
+          "fields-to-discriminateBy": {
+            "basic": "Basic",
+            "gang": "Gang"
+          }
+        }
+      ]
+    },
+    "io.k8s.api.scheduling.v1.WorkloadPodGroupSingleDisruptionMode": {
+      "description": "WorkloadPodGroupSingleDisruptionMode indicates that individual pods can be disrupted independently.",
+      "type": "object"
+    },
+    "io.k8s.api.scheduling.v1.WorkloadTopologyConstraint": {
+      "description": "WorkloadTopologyConstraint defines a topology constraint for a group of pods managed by a workload controller.",
+      "properties": {
+        "key": {
+          "description": "key specifies the key of the node label representing the topology domain. All pods within the PodGroup (or CompositePodGroup) must be colocated within the same domain instance. Different groups can land on different domain instances even if they derive from the same template. Nodes where this label is missing or has an empty value do not belong to any domain instance, so pods within the PodGroup/CompositePodGroup cannot be scheduled onto them. Examples: \"topology.kubernetes.io/rack\"",
+          "type": "string"
+        }
+      },
+      "required": [
+        "key"
+      ],
+      "type": "object"
+    },
     "io.k8s.api.scheduling.v1alpha3.AllCompositeDisruptionMode": {
       "description": "AllCompositeDisruptionMode means that children of a CompositePodGroup can only be disrupted or preempted together.",
       "type": "object"
@@ -20498,7 +20660,7 @@
           "type": "string"
         },
         "preemptionPolicy": {
-          "description": "preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. When Priority Admission Controller is enabled, it populates this field from PriorityClassName, and defaults to PreemptLowerPriority if value is unset in PriorityClass. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.",
+          "description": "preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. When Priority Admission Controller is enabled, it populates this field from PriorityClassName, and defaults to PreemptLowerPriority if value is unset in PriorityClass. This field is immutable.",
           "type": "string"
         },
         "priority": {
@@ -20582,16 +20744,16 @@
           "x-kubernetes-list-type": "map"
         },
         "preemptionPolicy": {
-          "description": "preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.",
+          "description": "preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. This field is immutable.",
           "type": "string"
         },
         "priority": {
-          "description": "priority is the value of priority of composite pod groups created from this template. Various system components use this field to find the priority of the composite pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable.",
+          "description": "priority is the value of priority of composite pod groups created from this template. Various system components use this field to find the priority of the composite pod group. The higher the value, the higher the priority. This field is immutable.",
           "format": "int32",
           "type": "integer"
         },
         "priorityClassName": {
-          "description": "priorityClassName indicates the priority that should be considered when scheduling a composite pod group created from this template. If no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, composite pod groups created from this template will have the priority set to zero. This field is immutable.",
+          "description": "priorityClassName indicates the priority that should be considered when scheduling a composite pod group created from this template. This field is immutable.",
           "type": "string"
         },
         "schedulingConstraints": {
@@ -20808,7 +20970,7 @@
           "type": "string"
         },
         "preemptionPolicy": {
-          "description": "preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. When Priority Admission Controller is enabled, it populates this field from PriorityClassName, and defaults to PreemptLowerPriority if value is unset in PriorityClass. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.",
+          "description": "preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. When Priority Admission Controller is enabled, it populates this field from PriorityClassName, and defaults to PreemptLowerPriority if value is unset in PriorityClass. This field is immutable.",
           "type": "string"
         },
         "priority": {
@@ -20817,7 +20979,7 @@
           "type": "integer"
         },
         "priorityClassName": {
-          "description": "priorityClassName defines the priority that should be considered when scheduling this pod group. Controllers are expected to fill this field by copying it from a PodGroupTemplate. Otherwise, it is validated and resolved similarly to the PriorityClassName on PodGroupTemplate (i.e. if no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, the pod group's priority will be zero). This field is immutable.",
+          "description": "priorityClassName defines the priority that should be considered when scheduling this pod group. Controllers are expected to fill this field by copying it from a PodGroupTemplate. Otherwise, it is validated and resolved similarly to the PriorityClassName in Pods (i.e. if no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, the pod group's priority will be zero). This field is immutable.",
           "type": "string"
         },
         "resourceClaims": {
@@ -20895,7 +21057,7 @@
           "type": "string"
         },
         "preemptionPolicy": {
-          "description": "preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.",
+          "description": "preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. This field is immutable.",
           "type": "string"
         },
         "priority": {
@@ -21050,108 +21212,6 @@
           "version": "v1alpha3"
         }
       ]
-    },
-    "io.k8s.api.scheduling.v1alpha3.WorkloadPodGroupAllDisruptionMode": {
-      "description": "WorkloadPodGroupAllDisruptionMode indicates that all pods in the group must be disrupted together.",
-      "type": "object"
-    },
-    "io.k8s.api.scheduling.v1alpha3.WorkloadPodGroupBasicSchedulingPolicy": {
-      "description": "WorkloadPodGroupBasicSchedulingPolicy indicates standard Kubernetes scheduling behavior.",
-      "type": "object"
-    },
-    "io.k8s.api.scheduling.v1alpha3.WorkloadPodGroupDisruptionMode": {
-      "description": "WorkloadPodGroupDisruptionMode defines how individual pods within a group can be disrupted. Exactly one mode must be set.",
-      "properties": {
-        "all": {
-          "$ref": "#/definitions/io.k8s.api.scheduling.v1alpha3.WorkloadPodGroupAllDisruptionMode",
-          "description": "all specifies that all pods in the group must be disrupted together."
-        },
-        "single": {
-          "$ref": "#/definitions/io.k8s.api.scheduling.v1alpha3.WorkloadPodGroupSingleDisruptionMode",
-          "description": "single specifies that pods can be disrupted independently from each other."
-        }
-      },
-      "type": "object",
-      "x-kubernetes-unions": [
-        {
-          "fields-to-discriminateBy": {
-            "all": "All",
-            "single": "Single"
-          }
-        }
-      ]
-    },
-    "io.k8s.api.scheduling.v1alpha3.WorkloadPodGroupGangSchedulingPolicy": {
-      "description": "WorkloadPodGroupGangSchedulingPolicy defines the parameters for gang (all-or-nothing) scheduling.",
-      "properties": {
-        "minCount": {
-          "description": "minCount is the minimum number of pods that must be scheduled at the same time for the scheduler to admit the entire group. This field is optional. If it is not specified, the controller should inject a context-specific sane default (e.g., parallelism for a Job). If set, it must be a positive integer.",
-          "format": "int32",
-          "type": "integer"
-        }
-      },
-      "type": "object"
-    },
-    "io.k8s.api.scheduling.v1alpha3.WorkloadPodGroupResourceClaim": {
-      "description": "WorkloadPodGroupResourceClaim references a dynamic resource claim that is shared across pods in the group.",
-      "properties": {
-        "name": {
-          "description": "name uniquely identifies this resource claim inside the group. This field is required. It must be a DNS_LABEL.",
-          "type": "string"
-        },
-        "resourceClaimName": {
-          "description": "resourceClaimName is the name of a ResourceClaim object in the same namespace. This field is optional. If it is not specified, no resource claim is used. If set, it must be a DNS subdomain.",
-          "type": "string"
-        },
-        "resourceClaimTemplateName": {
-          "description": "resourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace. This field is optional. If it is not specified, no resource claim template is used. If set, it must be a DNS subdomain.",
-          "type": "string"
-        }
-      },
-      "required": [
-        "name"
-      ],
-      "type": "object"
-    },
-    "io.k8s.api.scheduling.v1alpha3.WorkloadPodGroupSchedulingConstraints": {
-      "description": "WorkloadPodGroupSchedulingConstraints defines leaf-level scheduling constraints, such as topology.",
-      "properties": {
-        "topology": {
-          "description": "topology specifies desired topological placements for all pods within the pod group. If unset, no topology placement is requested.",
-          "items": {
-            "$ref": "#/definitions/io.k8s.api.scheduling.v1alpha3.TopologyConstraint"
-          },
-          "type": "array",
-          "x-kubernetes-list-type": "atomic"
-        }
-      },
-      "type": "object"
-    },
-    "io.k8s.api.scheduling.v1alpha3.WorkloadPodGroupSchedulingPolicy": {
-      "description": "WorkloadPodGroupSchedulingPolicy defines the scheduling policy for a group of pods managed by a workload controller. Exactly one policy must be set.",
-      "properties": {
-        "basic": {
-          "$ref": "#/definitions/io.k8s.api.scheduling.v1alpha3.WorkloadPodGroupBasicSchedulingPolicy",
-          "description": "basic specifies that standard, pod-by-pod Kubernetes scheduling behavior should be used."
-        },
-        "gang": {
-          "$ref": "#/definitions/io.k8s.api.scheduling.v1alpha3.WorkloadPodGroupGangSchedulingPolicy",
-          "description": "gang specifies all-or-nothing scheduling semantics."
-        }
-      },
-      "type": "object",
-      "x-kubernetes-unions": [
-        {
-          "fields-to-discriminateBy": {
-            "basic": "Basic",
-            "gang": "Gang"
-          }
-        }
-      ]
-    },
-    "io.k8s.api.scheduling.v1alpha3.WorkloadPodGroupSingleDisruptionMode": {
-      "description": "WorkloadPodGroupSingleDisruptionMode indicates that individual pods can be disrupted independently.",
-      "type": "object"
     },
     "io.k8s.api.scheduling.v1alpha3.WorkloadReference": {
       "description": "WorkloadReference references the Workload object together with the template that was used to create a particular PodGroup.",
@@ -21380,7 +21440,7 @@
           "type": "string"
         },
         "preemptionPolicy": {
-          "description": "preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. When Priority Admission Controller is enabled, it populates this field from PriorityClassName, and defaults to PreemptLowerPriority if value is unset in PriorityClass. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.",
+          "description": "preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. When Priority Admission Controller is enabled, it populates this field from PriorityClassName, and defaults to PreemptLowerPriority if value is unset in PriorityClass. This field is immutable.",
           "type": "string"
         },
         "priority": {
@@ -21464,16 +21524,16 @@
           "x-kubernetes-list-type": "map"
         },
         "preemptionPolicy": {
-          "description": "preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.",
+          "description": "preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. This field is immutable.",
           "type": "string"
         },
         "priority": {
-          "description": "priority is the value of priority of composite pod groups created from this template. Various system components use this field to find the priority of the composite pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable.",
+          "description": "priority is the value of priority of composite pod groups created from this template. Various system components use this field to find the priority of the composite pod group. The higher the value, the higher the priority. This field is immutable.",
           "format": "int32",
           "type": "integer"
         },
         "priorityClassName": {
-          "description": "priorityClassName indicates the priority that should be considered when scheduling a composite pod group created from this template. If no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, composite pod groups created from this template will have the priority set to zero. This field is immutable.",
+          "description": "priorityClassName indicates the priority that should be considered when scheduling a composite pod group created from this template. This field is immutable.",
           "type": "string"
         },
         "schedulingConstraints": {
@@ -21690,7 +21750,7 @@
           "type": "string"
         },
         "preemptionPolicy": {
-          "description": "preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. When Priority Admission Controller is enabled, it populates this field from PriorityClassName, and defaults to PreemptLowerPriority if value is unset in PriorityClass. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.",
+          "description": "preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. When Priority Admission Controller is enabled, it populates this field from PriorityClassName, and defaults to PreemptLowerPriority if value is unset in PriorityClass. This field is immutable.",
           "type": "string"
         },
         "priority": {
@@ -21699,7 +21759,7 @@
           "type": "integer"
         },
         "priorityClassName": {
-          "description": "priorityClassName defines the priority that should be considered when scheduling this pod group. Controllers are expected to fill this field by copying it from a PodGroupTemplate. Otherwise, it is validated and resolved similarly to the PriorityClassName on PodGroupTemplate (i.e. if no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, the pod group's priority will be zero). This field is immutable.",
+          "description": "priorityClassName defines the priority that should be considered when scheduling this pod group. Controllers are expected to fill this field by copying it from a PodGroupTemplate. Otherwise, it is validated and resolved similarly to the PriorityClassName in Pods (i.e. if no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, the pod group's priority will be zero). This field is immutable.",
           "type": "string"
         },
         "resourceClaims": {
@@ -21777,7 +21837,7 @@
           "type": "string"
         },
         "preemptionPolicy": {
-          "description": "preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.",
+          "description": "preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. This field is immutable.",
           "type": "string"
         },
         "priority": {
