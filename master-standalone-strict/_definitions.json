@@ -6307,8 +6307,7 @@
         "serviceAccountName",
         "serviceAccountUID",
         "nodeName",
-        "nodeUID",
-        "stubPKCS10Request"
+        "nodeUID"
       ],
       "type": "object",
       "additionalProperties": false
@@ -6857,7 +6856,7 @@
       "additionalProperties": false
     },
     "io.k8s.api.core.v1.Binding": {
-      "description": "Binding ties one object to another; for example, a pod is bound to a node by a scheduler.",
+      "description": "Binding assigns a pod to a node.",
       "properties": {
         "apiVersion": {
           "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
@@ -6876,7 +6875,7 @@
         },
         "target": {
           "$ref": "#/definitions/io.k8s.api.core.v1.ObjectReference",
-          "description": "target is the target object that you want to bind to the standard object."
+          "description": "target is the node that you want to bind the pod to."
         }
       },
       "required": [
@@ -18348,6 +18347,10 @@
     "io.k8s.api.resource.v1.DeviceTaintSelector": {
       "description": "DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The empty selector matches all devices. Without a selector, no devices are matched.",
       "properties": {
+        "all": {
+          "description": "all explicitly selects every device from every driver in the cluster when set to true. It must not be combined with driver, pool, or device: those must all be unset when all is true.\n\nLeaving driver, pool, and device all unset also selects every device, for historical reasons, but doing so without setting all is deprecated and may be rejected in a future release. Set all explicitly instead.",
+          "type": "boolean"
+        },
         "device": {
           "description": "device represents the name of the device. If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.\n\nSetting also driver and pool may be required to avoid ambiguity, but is not required.",
           "type": "string"
@@ -19089,6 +19092,10 @@
     "io.k8s.api.resource.v1alpha3.DeviceTaintSelector": {
       "description": "DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The empty selector matches all devices. Without a selector, no devices are matched.",
       "properties": {
+        "all": {
+          "description": "all explicitly selects every device from every driver in the cluster when set to true. It must not be combined with driver, pool, or device: those must all be unset when all is true.\n\nLeaving driver, pool, and device all unset also selects every device, for historical reasons, but doing so without setting all is deprecated and may be rejected in a future release. Set all explicitly instead.",
+          "type": "boolean"
+        },
         "device": {
           "description": "device is the name of the device. If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.\n\nSetting also driver and pool may be required to avoid ambiguity, but is not required.",
           "type": "string"
@@ -20341,6 +20348,10 @@
     "io.k8s.api.resource.v1beta2.DeviceTaintSelector": {
       "description": "DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The empty selector matches all devices. Without a selector, no devices are matched.",
       "properties": {
+        "all": {
+          "description": "all explicitly selects every device from every driver in the cluster when set to true. It must not be combined with driver, pool, or device: those must all be unset when all is true.\n\nLeaving driver, pool, and device all unset also selects every device, for historical reasons, but doing so without setting all is deprecated and may be rejected in a future release. Set all explicitly instead.",
+          "type": "boolean"
+        },
         "device": {
           "description": "device is the device name. If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.\n\nSetting also driver and pool may be required to avoid ambiguity, but is not required.",
           "type": "string"
